@@ -1,4 +1,54 @@
+APP Requirements
+================
 pip install flask
 installed Flask-3.0.0 Jinja2-3.1.2 MarkupSafe-2.1.3 Werkzeug-3.0.1 blinker-1.7.0 click-8.1.7 itsdangerous-2.1.2
 python3 -m venv <my-env-name>(reg-login-env)
 source <my-env-name>/bin/activate
+pip install sqlalchemy
+pip install mysql-connector-python
+installed mysql-connector-python-8.2.0 protobuf-4.21.12
+
+Database Requirements
+=====================
+sudo service docker start (if docker is not running)
+docker pull mysql:latest (to pull mysql image)
+docker run --name users-container -e MYSQL_ROOT_PASSWORD=******** -d mysql:latest (input your password and container name)
+docker ps (to list all running containers)
+docker exec -it container_id bash (to enter into the container Replace container_id with the actual Container ID or Name)
+mysql -u root -p (to enter into mysql and enter your password)
+CREATE DATABASE users_db; (to create database)
+USE users_db; (to use the database)
+docker start -a -i users-container (to start the container but ommit -a -i if you want to start the container in the background)
+CREATE TABLE user (
+    user_id VARCHAR(36) PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    gender VARCHAR(10),
+    date_of_birth DATE,
+    phone_number VARCHAR(15),
+    email VARCHAR(255),
+    address TEXT,
+    country_of_origin VARCHAR(255)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    password VARCHAR(255)
+);
+
+The user database example is as shown below
+
++-------------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| Field             | Type         | Null | Key | Default           | Extra                                         |
++-------------------+--------------+------+-----+-------------------+-----------------------------------------------+
+| user_id           | varchar(36)  | NO   | PRI | NULL              |                                               |
+| first_name        | varchar(255) | YES  |     | NULL              |                                               |
+| last_name         | varchar(255) | YES  |     | NULL              |                                               |
+| gender            | varchar(10)  | YES  |     | NULL              |                                               |
+| date_of_birth     | date         | YES  |     | NULL              |                                               |
+| phone_number      | varchar(15)  | YES  |     | NULL              |                                               |
+| email             | varchar(255) | YES  |     | NULL              |                                               |
+| address           | text         | YES  |     | NULL              |                                               |
+| country_of_origin | varchar(255) | YES  |     | NULL              |                                               |
+| created_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED                             |
+| updated_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
+| password          | varchar(255) | YES  |     | NULL              |                                               |
++-------------------+--------------+------+-----+-------------------+-----------------------------------------------+
