@@ -52,3 +52,11 @@ The user database example is as shown below
 | updated_at        | timestamp    | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
 | password          | varchar(255) | YES  |     | NULL              |                                               |
 +-------------------+--------------+------+-----+-------------------+-----------------------------------------------+
+
+** Environment Variables **
+===========================
+MYSQL_USER = ********
+MYSQL_PASSWORD = ********
+MYSQL_HOST = ********
+MYSQL_DATABASE = ********
+STORAGE_ENV = ********

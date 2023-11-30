@@ -1,1 +1,2 @@
 This micro service is simply for a login and registration system microservice using flask and mysql.
+I will be using a mysql container in same network with the app container i am building.
