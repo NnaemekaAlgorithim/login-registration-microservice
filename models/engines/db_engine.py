@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Defines the DBStorage engine."""
+from flask_bcrypt import check_password_hash
 from os import getenv
 from models.user_model import User
 from models.base_model import Base
@@ -8,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
+from pymysql import connect, cursors
 
 
 class DBStorage:
@@ -23,14 +25,12 @@ class DBStorage:
 
     def __init__(self):
         """Initialize a new DBStorage instance."""
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
+        self.__engine = create_engine("mysql+pymysql://{}:{}@{}/{}".
                                       format(getenv("MYSQL_USER"),
                                              getenv("MYSQL_PWD"),
                                              getenv("MYSQL_HOST"),
                                              getenv("MYSQL_DB")),
-                                      pool_pre_ping=True)
-        if getenv("STORAGE_ENV") == "test":
-            Base.metadata.drop_all(self.__engine)
+                                     )
 
     def all(self, cls=None):
         """Query on the curret database session all objects of the given class.
@@ -60,6 +60,23 @@ class DBStorage:
         """Delete obj from the current database session."""
         if obj is not None:
             self.__session.delete(obj)
+    
+    def get_user(self, email=None, password=None):
+        """Retrieve a user from the database by email and password.
+
+        Args:
+            email (str): The user's email.
+            password (str): The user's password.
+
+        Returns:
+            User: The matching User object if found, None otherwise.
+        """
+        user = self.__session.query(User).filter(User.email == email).first()
+
+        if user and check_password_hash(user.password, password):
+            return user
+
+        return None
 
     def reload(self):
         """Create all tables in the database and initialize a new session."""

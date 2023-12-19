@@ -19,7 +19,7 @@ class BaseModel:
         updated_at (sqlalchemy DateTime): The datetime of last update.
     """
 
-    user_id = Column(String(60), primary_key=True, nullable=False)
+    user_id = Column(String(60), primary_key=True, default=uuid4().hex)
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -61,6 +61,10 @@ class BaseModel:
     def delete(self):
         """Delete the current instance from storage."""
         models.storage.delete(self)
+
+    def check_user(email, password):
+        """retrives current instance from storage"""
+        return  models.storage.get_user(email, password)
 
     def __str__(self):
         """Return the print/str representation of the BaseModel instance."""

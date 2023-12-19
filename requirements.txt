@@ -1,0 +1,7 @@
+flask>=3.0.0
+sqlalchemy
+pymysql
+mysql-connector-python>=8.2.0
+Flask-JWT-Extended>=4.2.0
+flask_bcrypt
+cors
