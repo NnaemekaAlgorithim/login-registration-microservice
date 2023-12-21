@@ -1,5 +1,6 @@
 update
 reg-login-env/
+Building-plan-and-goals.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

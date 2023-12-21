@@ -1,0 +1,12 @@
+.git
+__pycache__
+*.env
+logs/
+tmp/
+reg-login-env/
+Build_instructions.txt
+Building-plan-and-goals.txt
+Manual_doc.txt
+README.md
+update.sh
+.gitignore
